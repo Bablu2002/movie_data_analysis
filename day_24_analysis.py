@@ -45,3 +45,34 @@ plt.ylabel("Revenue (Millions USD)")
 plt.tight_layout()
 plt.legend(bbox_to_anchor=(1.05, 1), loc = 'upper left')
 plt.show()
+
+"""top 5 directors by movie count"""
+top_directores = df['Director'].value_counts().head(5)
+print("\n Top 5 directors with most movies:")
+print(top_directores)
+
+"""movies released by year"""
+plt.figure(figsize=(10,5))
+sns.countplot(data=df, x='Year', palette='mako')
+plt.title("Movies release per year")
+plt.xticks(rotation = 45)
+plt.tight_layout()
+plt.show()
+
+"""heatmap for correlation numeric col"""
+plt.figure(figsize=(8,6))
+sns.heatmap(df[['Rating', 'Votes', 'Revenue', 'Metascore']].corr(), annot=True, cmap='coolwarm')
+plt.title("Correlation Between Rating, Revenue, Votes, Metascore")
+plt.tight_layout()
+plt.show()
+
+"""🎭 Genre frequency analysis"""
+genre_list = df['Genre'].str.split(',').explode().str.strip()
+top_genres = genre_list.value_counts().head(10)
+
+plt.figure(figsize=(8, 5))
+sns.barplot(x=top_genres.values, y=top_genres.index, palette='viridis')
+plt.title("Top 10 Genres by Number of Movies")
+plt.xlabel("Number of Movies")
+plt.tight_layout()
+plt.show()
